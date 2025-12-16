@@ -27,7 +27,7 @@ DEFAULT_START_DATE = datetime.date(2021, 12, 10)
 DEFAULT_END_DATE = datetime.date.today()
 
 # --- HEADER AND DATE PICKERS ---
-st.title("📈 Market Movement Analysis & Prediction")
+st.title("📈 Market Movement Analysis & Prediction (NIFTY 50)")
 
 # Use 2 columns for clean date pickers
 dt_col1, dt_col2 = st.columns(2)
