@@ -2,4 +2,8 @@ pandas
 numpy
 streamlit
 catboost
+<<<<<<< HEAD
 ta
+=======
+ta
+>>>>>>> 4b470d60466f271ebbf832702decc307c9bae813
