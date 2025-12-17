@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+import altair as alt
 
 #Utility functions
 def remove_symbols(x):
@@ -99,4 +100,22 @@ def plot_feature(start_date, end_date, df, feature_list):
   filtered_df = df[(df.Date >= start_date) & (df.Date <= end_date)]
   filtered_df = filtered_df[feature_list + ["Date"]]
   st.line_chart(filtered_df, x = "Date", y = feature_list)
+
+def plot_feature_altair(start_date, end_date, df, feature_list):
+  filtered_df = df[(df.Date >= start_date) & (df.Date <= end_date)]
+
+  for feature in feature_list:
+      chart = (
+          alt.Chart(filtered_df)
+          .mark_line()
+          .encode(
+                x="Date:T",
+                y=alt.Y(f"{feature}:Q", title=feature)
+          )
+          .properties(height=300)
+          .interactive(False)   # 🔴 disables zoom & pan
+        )
+
+      st.altair_chart(chart, use_container_width=True)
+
   
