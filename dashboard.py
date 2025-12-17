@@ -3,7 +3,7 @@ import pandas as pd
 import datetime
 # Assuming data_repo, Predictor, and utils functions are in files named data_repo.py, predictor.py, and utils.py
 from data_repo import DataRepo
-from utils import plot_macd, plot_rsi, plot_feature
+from utils import plot_feature, plot_feature_altair
 from predictor import Predictor
 
 # --- CONFIGURATION (MUST be the first Streamlit command) ---
@@ -107,7 +107,7 @@ if start_date and end_date and (df.shape[0] > 0):
 
         # Use st.metric for a clear, impactful display
         st.metric(
-            label="Predicted Movement", 
+            label=f"Prediction for {DEFAULT_END_DATE.strftime("%d-%m-%Y")}", 
             value=pred_text, 
             # Use delta_color to reflect the market sentiment (Rise=Normal/Green, Fall=Inverse/Red)
             delta="Predicted by Model", 
@@ -121,10 +121,12 @@ if start_date and end_date and (df.shape[0] > 0):
     
     # Sub-headers for clarity above each plot
     st.subheader("MACD Crossover Plot")
-    plot_macd(str_start, str_end, df)
+    # plot_macd(str_start, str_end, df)
+    plot_feature(str_start, str_end, df, ["MACD", "MACD_signal", "MACD_diff"])
     
     st.subheader("RSI (Relative Strength Index) Plot")
-    plot_rsi(str_start, str_end, df)
+    # plot_rsi(str_start, str_end, df)
+    plot_feature(str_start, str_end, df, ["RSI_14"])
     
     st.subheader("Price Change Feature")
     plot_feature(str_start, str_end, df, ["Change_%"])
