@@ -3,7 +3,7 @@ import pandas as pd
 import datetime
 # Assuming data_repo, Predictor, and utils functions are in files named data_repo.py, predictor.py, and utils.py
 from data_repo import DataRepo
-from utils import plot_feature, plot_feature_altair
+from utils import plot_feature
 from predictor import Predictor
 
 # --- CONFIGURATION (MUST be the first Streamlit command) ---
@@ -11,6 +11,12 @@ st.set_page_config(
     layout="wide",
     page_title="Stock Movement Predictor",
     menu_items={'About': "A simple stock prediction dashboard."}
+)
+
+st.warning(
+    f"⚠️ **Maintenance Notice:** This application is no longer actively maintained. "
+    f"The last data update and code review was on **December 17th, 2025**. "
+    f"The predictions should be used for historical analysis only, not for live trading."
 )
 
 # --- INITIAL DATA SETUP ---
@@ -23,7 +29,7 @@ MIN_DATE = datetime.date(1900, 1, 1)
 MAX_DATE = datetime.date.today() 
 
 # Setting default values to match the screenshot for demonstration
-DEFAULT_START_DATE = datetime.date(2021, 12, 10)
+DEFAULT_START_DATE = datetime.date(2024, 12, 10)
 DEFAULT_END_DATE = datetime.date.today()
 
 # --- HEADER AND DATE PICKERS ---
@@ -110,10 +116,10 @@ if start_date and end_date and (df.shape[0] > 0):
             label=f"Prediction for {DEFAULT_END_DATE.strftime("%d-%m-%Y")}", 
             value=pred_text, 
             # Use delta_color to reflect the market sentiment (Rise=Normal/Green, Fall=Inverse/Red)
-            delta="Predicted by Model", 
+            delta="Predicted by Model (F1-Score: 0.61)", 
             delta_color="normal" if prediction == 1 else "inverse"
         )
-        # st.info("The prediction reflects the expected direction for the day after the selected 'End' date.")
+        # st.info("Model F1-Score: 0.61")
 
     # --- Plots/Visual Analysis Section ---
     st.markdown("---") # Visual separator
